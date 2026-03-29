@@ -8,6 +8,7 @@ import OSM from 'ol/source/OSM.js';
 import { defaults as defaultControls } from 'ol/control';
 import 'ol/ol.css';
 import './style.css';
+import { elt } from './elt.js';
 
 
 
@@ -24,6 +25,13 @@ const map = new Map({
   }),
   controls: defaultControls({ zoom: false })
 });
+
+const btn = elt('button', {
+  class: 'btn btn-primary map-btn',
+  onclick: () => console.log('klik')
+}, '+');
+document.body.appendChild(btn);
+
 console.log(map);
 
 /** for i18next
