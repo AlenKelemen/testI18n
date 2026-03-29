@@ -26,11 +26,34 @@ const map = new Map({
   controls: defaultControls({ zoom: false })
 });
 
-const btn = elt('button', {
-  class: 'btn btn-primary map-btn',
-  onclick: () => console.log('klik')
-}, '+');
-document.body.appendChild(btn);
+/* LEFT TOPBAR (tools placeholder) */
+const topbarLeft = elt('div', { class: 'map-topbar-left' }, [
+  elt('button', { class: 'btn btn-light btn-sm' }, 'Tool 1'),
+  elt('button', { class: 'btn btn-light btn-sm' }, 'Tool 2')
+]);
+
+/* RIGHT TOPBAR (menu placeholder) */
+const topbarRight = elt('div', { class: 'map-topbar-right' }, [
+  elt('button', { class: 'btn btn-success btn-sm' }, '☰'),
+  elt('button', { class: 'btn btn-success btn-sm' }, '👤')
+]);
+
+/* BOTTOM BAR */
+const bottombar = elt('div', { class: 'map-bottombar' }, [
+  elt('span', {}, '1:5000'),
+
+  elt('select', { class: 'form-select form-select-sm' }, [
+    elt('option', {}, 'Layer 1'),
+    elt('option', {}, 'Layer 2')
+  ])
+]);
+
+/* ADD TO DOM */
+document.body.append(
+  topbarLeft,
+  topbarRight,
+  bottombar
+);
 
 console.log(map);
 
