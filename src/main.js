@@ -59,9 +59,60 @@ const legendOffcanvas = elt('div', {
 
 document.body.appendChild(legendOffcanvas);
 
+const toolsButton = elt('button', {
+  class: 'btn btn-light btn-sm d-flex align-items-center gap-2',
+  type: 'button',
+  'data-bs-toggle': 'offcanvas',
+  'data-bs-target': '#toolsOffcanvas'
+}, [
+  icon('sliders')
+]);
+const toolsTitle = elt('h5', { class: 'offcanvas-title' }, t('tools'));
+
+const toolsOffcanvas = elt('div', {
+  class: 'offcanvas offcanvas-start',
+  id: 'toolsOffcanvas',
+  tabindex: '-1'
+}, [
+  elt('div', { class: 'offcanvas-header' }, [
+    toolsTitle,
+    elt('button', {
+      class: 'btn-close',
+      type: 'button',
+      'data-bs-dismiss': 'offcanvas'
+    })
+  ]),
+
+  elt('div', { class: 'offcanvas-body' }, [
+    elt('div', { class: 'accordion', id: 'toolsAccordion' }, [
+      elt('div', { class: 'accordion-item' }, [
+        elt('h2', { class: 'accordion-header' }, [
+          elt('button', {
+            class: 'accordion-button',
+            type: 'button',
+            'data-bs-toggle': 'collapse',
+            'data-bs-target': '#collapseTools1'
+          }, t('map_tools'))
+        ]),
+        elt('div', {
+          id: 'collapseTools1',
+          class: 'accordion-collapse collapse show',
+          'data-bs-parent': '#toolsAccordion'
+        }, [
+          elt('div', { class: 'accordion-body' }, [
+            elt('button', { class: 'btn btn-outline-secondary btn-sm me-2' }, t('select')),
+            elt('button', { class: 'btn btn-outline-secondary btn-sm me-2' }, t('measure'))
+          ])
+        ])
+      ])
+    ])
+  ])
+]);
+
+document.body.appendChild(toolsOffcanvas);
 const topbarLeft = elt('div', { class: 'map-topbar-left' }, [
   legendButton,
-  elt('button', { class: 'btn btn-light btn-sm' }, 'Tool 2')
+  toolsButton
 ]);
 
 /* RIGHT TOPBAR */
@@ -155,6 +206,7 @@ function renderUI() {
   legendButton.lastChild.textContent = ' ' + t('legend');
   legendTitle.textContent = t('legend');
   langBtn.lastChild.textContent = ' ' + langLabel();
+  toolsTitle.textContent = t('tools');
 }
 
 renderUI();
