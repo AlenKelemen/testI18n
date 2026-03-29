@@ -1,15 +1,28 @@
 import i18n, { t } from './i18n.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
+import Map from 'ol/Map.js';
+import View from 'ol/View.js';
+import TileLayer from 'ol/layer/Tile.js';
+import OSM from 'ol/source/OSM.js';
+import 'ol/ol.css';
+import './style.css';
 
-document.body.innerHTML = `
-<div class="container-fluid">
-  <h1 id="title"></h1>
-  <button id="hr" class="btn btn-primary">HR</button>
-  <button id="en" class="btn btn-primary">EN</button>
-  <p id="zoomIn"></p>
-</div>
-`;
+const map = new Map({
+  target: 'map',
+  layers: [
+    new TileLayer({
+      source: new OSM()
+    })
+  ],
+  view: new View({
+    center: [0, 0],
+    zoom: 2
+  })
+});
+console.log(map);
+
+/** for i18next
 function render() {
   document.getElementById('title').textContent = t('app.title');
   document.getElementById('zoomIn').textContent = t('map.zoom_in');
@@ -23,5 +36,4 @@ document.getElementById('en').addEventListener('click', async () => {
   await i18n.changeLanguage('en');
   render();
 });
-
-render();
+**/
