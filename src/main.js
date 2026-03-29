@@ -27,8 +27,33 @@ const map = new Map({
 });
 
 /* LEFT TOPBAR (tools placeholder) */
+const legendButton = elt('button', {
+  class: 'btn btn-light btn-sm',
+  type: 'button',
+  'data-bs-toggle': 'offcanvas',
+  'data-bs-target': '#legendOffcanvas'
+}, 'Legenda');
+const legendOffcanvas = elt('div', {
+  class: 'offcanvas offcanvas-start',
+  id: 'legendOffcanvas',
+  tabindex: '-1'
+}, [
+  elt('div', { class: 'offcanvas-header' }, [
+    elt('h5', { class: 'offcanvas-title' }, 'Legenda'),
+    elt('button', {
+      class: 'btn-close',
+      type: 'button',
+      'data-bs-dismiss': 'offcanvas'
+    })
+  ]),
+
+  elt('div', { class: 'offcanvas-body' }, [
+    elt('div', {}, 'Legend content...')
+  ])
+]);
+document.body.appendChild(legendOffcanvas);
 const topbarLeft = elt('div', { class: 'map-topbar-left' }, [
-  elt('button', { class: 'btn btn-light btn-sm' }, 'Tool 1'),
+  legendButton,
   elt('button', { class: 'btn btn-light btn-sm' }, 'Tool 2')
 ]);
 
