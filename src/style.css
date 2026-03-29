@@ -23,6 +23,9 @@ html, body, #map {
 .map-topbar-right {
   right: 12px;
 }
+.dropdown-item i {
+  margin-right: 8px;
+}
 
 /* BOTTOM BAR */
 
@@ -32,15 +35,19 @@ html, body, #map {
   left: 50%;
   transform: translateX(-50%);
 
-  display: flex;
+  display: inline-flex;      /* bitno: ne raste */
   align-items: center;
-  gap: 8px;
 
-  padding: 6px 10px;
+  padding: 4px 10px;         /* manji padding */
+  font-size: 14px;
 
   background: rgba(255, 255, 255, 0.9);
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
   z-index: 1000;
+}
+
+.map-bottombar span {
+  white-space: nowrap;
 }

@@ -9,6 +9,7 @@ import { defaults as defaultControls } from 'ol/control';
 import 'ol/ol.css';
 import './style.css';
 import { elt } from './elt.js';
+import { icon } from './icon.js';
 
 
 
@@ -28,11 +29,14 @@ const map = new Map({
 
 /* LEFT TOPBAR (tools placeholder) */
 const legendButton = elt('button', {
-  class: 'btn btn-light btn-sm',
+  class: 'btn btn-light btn-sm d-flex align-items-center gap-2',
   type: 'button',
   'data-bs-toggle': 'offcanvas',
   'data-bs-target': '#legendOffcanvas'
-}, 'Legenda');
+}, [
+  icon('layer-group'),
+  'Legenda'
+]);
 const legendOffcanvas = elt('div', {
   class: 'offcanvas offcanvas-start',
   id: 'legendOffcanvas',
@@ -58,19 +62,56 @@ const topbarLeft = elt('div', { class: 'map-topbar-left' }, [
 ]);
 
 /* RIGHT TOPBAR (menu placeholder) */
+const langBtn = elt('button', {
+  class: 'dropdown-item d-flex align-items-center gap-2',
+  onclick: () => {
+    toggleLang();
+    langBtn.lastChild.textContent = ' ' + langLabel();
+  }
+}, [
+  icon('language'),
+  ' ' + langLabel()
+]);
+const menu = elt('div', { class: 'dropdown' }, [
+  elt('button', {
+    class: 'btn btn-success btn-sm',
+    type: 'button',
+    'data-bs-toggle': 'dropdown',
+    'aria-expanded': 'false'
+  }, icon('bars')),
+
+  elt('ul', { class: 'dropdown-menu dropdown-menu-end' }, [
+
+    elt('li', {}, elt('button', { class: 'dropdown-item' }, [
+      icon('print'),
+      ' Ispis'
+    ])),
+
+    elt('li', {}, elt('button', { class: 'dropdown-item' }, [
+      icon('file-arrow-down'),
+      ' Izvoz'
+    ])),
+
+    elt('li', {}, elt('button', { class: 'dropdown-item' }, [
+      icon('link'),
+      ' Trajna veza'
+    ])),
+    langBtn,
+    elt('li', {}, elt('button', { class: 'dropdown-item' }, [
+      icon('gear'),
+      ' Postavke'
+    ])),
+  ])
+]);
+
 const topbarRight = elt('div', { class: 'map-topbar-right' }, [
-  elt('button', { class: 'btn btn-success btn-sm' }, '☰'),
-  elt('button', { class: 'btn btn-success btn-sm' }, '👤')
+  menu,
+  elt('button', { class: 'btn btn-success btn-sm' }, icon('user'))
 ]);
 
 /* BOTTOM BAR */
 const bottombar = elt('div', { class: 'map-bottombar' }, [
-  elt('span', {}, '1:5000'),
-
-  elt('select', { class: 'form-select form-select-sm' }, [
-    elt('option', {}, 'Layer 1'),
-    elt('option', {}, 'Layer 2')
-  ])
+  elt('span', {}, '1:5000')
 ]);
 
 /* ADD TO DOM */
@@ -81,6 +122,16 @@ document.body.append(
 );
 
 console.log(map);
+
+function toggleLang() {
+  const current = i18n.language;
+  const next = current === 'hr' ? 'en' : 'hr';
+
+  i18n.changeLanguage(next);
+}
+function langLabel() {
+  return i18n.language === 'hr' ? 'HR' : 'EN';
+}
 
 /** for i18next
 function render() {
