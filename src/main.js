@@ -11,8 +11,6 @@ import './style.css';
 import { elt } from './elt.js';
 import { icon } from './icon.js';
 
-
-
 const map = new Map({
   target: 'map',
   layers: [
@@ -27,7 +25,7 @@ const map = new Map({
   controls: defaultControls({ zoom: false })
 });
 
-/* LEFT TOPBAR (tools placeholder) */
+/* LEFT TOPBAR */
 const legendButton = elt('button', {
   class: 'btn btn-light btn-sm d-flex align-items-center gap-2',
   type: 'button',
@@ -35,15 +33,18 @@ const legendButton = elt('button', {
   'data-bs-target': '#legendOffcanvas'
 }, [
   icon('layer-group'),
-  'Legenda'
+  ' ' + t('legend')
 ]);
+
+const legendTitle = elt('h5', { class: 'offcanvas-title' }, t('legend'));
+
 const legendOffcanvas = elt('div', {
   class: 'offcanvas offcanvas-start',
   id: 'legendOffcanvas',
   tabindex: '-1'
 }, [
   elt('div', { class: 'offcanvas-header' }, [
-    elt('h5', { class: 'offcanvas-title' }, 'Legenda'),
+    legendTitle,
     elt('button', {
       class: 'btn-close',
       type: 'button',
@@ -55,23 +56,36 @@ const legendOffcanvas = elt('div', {
     elt('div', {}, 'Legend content...')
   ])
 ]);
+
 document.body.appendChild(legendOffcanvas);
+
 const topbarLeft = elt('div', { class: 'map-topbar-left' }, [
   legendButton,
   elt('button', { class: 'btn btn-light btn-sm' }, 'Tool 2')
 ]);
 
-/* RIGHT TOPBAR (menu placeholder) */
+/* RIGHT TOPBAR */
+function langLabel() {
+  return i18n.language === 'hr' ? 'HR' : 'EN';
+}
+
+async function toggleLang() {
+  const current = i18n.language;
+  const next = current === 'hr' ? 'en' : 'hr';
+  await i18n.changeLanguage(next);
+}
+
 const langBtn = elt('button', {
   class: 'dropdown-item d-flex align-items-center gap-2',
-  onclick: () => {
-    toggleLang();
-    langBtn.lastChild.textContent = ' ' + langLabel();
+  type: 'button',
+  onclick: async () => {
+    await toggleLang();
   }
 }, [
   icon('language'),
   ' ' + langLabel()
 ]);
+
 const menu = elt('div', { class: 'dropdown' }, [
   elt('button', {
     class: 'btn btn-success btn-sm',
@@ -81,23 +95,36 @@ const menu = elt('div', { class: 'dropdown' }, [
   }, icon('bars')),
 
   elt('ul', { class: 'dropdown-menu dropdown-menu-end' }, [
-
-    elt('li', {}, elt('button', { class: 'dropdown-item' }, [
+    elt('li', {}, elt('button', {
+      class: 'dropdown-item d-flex align-items-center gap-2',
+      type: 'button'
+    }, [
       icon('print'),
       ' Ispis'
     ])),
 
-    elt('li', {}, elt('button', { class: 'dropdown-item' }, [
+    elt('li', {}, elt('button', {
+      class: 'dropdown-item d-flex align-items-center gap-2',
+      type: 'button'
+    }, [
       icon('file-arrow-down'),
       ' Izvoz'
     ])),
 
-    elt('li', {}, elt('button', { class: 'dropdown-item' }, [
+    elt('li', {}, elt('button', {
+      class: 'dropdown-item d-flex align-items-center gap-2',
+      type: 'button'
+    }, [
       icon('link'),
       ' Trajna veza'
     ])),
-    langBtn,
-    elt('li', {}, elt('button', { class: 'dropdown-item' }, [
+
+    elt('li', {}, langBtn),
+
+    elt('li', {}, elt('button', {
+      class: 'dropdown-item d-flex align-items-center gap-2',
+      type: 'button'
+    }, [
       icon('gear'),
       ' Postavke'
     ])),
@@ -106,7 +133,10 @@ const menu = elt('div', { class: 'dropdown' }, [
 
 const topbarRight = elt('div', { class: 'map-topbar-right' }, [
   menu,
-  elt('button', { class: 'btn btn-success btn-sm' }, icon('user'))
+  elt('button', {
+    class: 'btn btn-success btn-sm',
+    type: 'button'
+  }, icon('user'))
 ]);
 
 /* BOTTOM BAR */
@@ -121,30 +151,16 @@ document.body.append(
   bottombar
 );
 
+function renderUI() {
+  legendButton.lastChild.textContent = ' ' + t('legend');
+  legendTitle.textContent = t('legend');
+  langBtn.lastChild.textContent = ' ' + langLabel();
+}
+
+renderUI();
+
+i18n.on('languageChanged', () => {
+  renderUI();
+});
+
 console.log(map);
-
-function toggleLang() {
-  const current = i18n.language;
-  const next = current === 'hr' ? 'en' : 'hr';
-
-  i18n.changeLanguage(next);
-}
-function langLabel() {
-  return i18n.language === 'hr' ? 'HR' : 'EN';
-}
-
-/** for i18next
-function render() {
-  document.getElementById('title').textContent = t('app.title');
-  document.getElementById('zoomIn').textContent = t('map.zoom_in');
-}
-document.getElementById('hr').addEventListener('click', async () => {
-  await i18n.changeLanguage('hr');
-  render();
-});
-
-document.getElementById('en').addEventListener('click', async () => {
-  await i18n.changeLanguage('en');
-  render();
-});
-**/
