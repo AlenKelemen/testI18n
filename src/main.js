@@ -5,8 +5,11 @@ import Map from 'ol/Map.js';
 import View from 'ol/View.js';
 import TileLayer from 'ol/layer/Tile.js';
 import OSM from 'ol/source/OSM.js';
+import { defaults as defaultControls } from 'ol/control';
 import 'ol/ol.css';
 import './style.css';
+
+
 
 const map = new Map({
   target: 'map',
@@ -18,7 +21,8 @@ const map = new Map({
   view: new View({
     center: [0, 0],
     zoom: 2
-  })
+  }),
+  controls: defaultControls({ zoom: false })
 });
 console.log(map);
 
