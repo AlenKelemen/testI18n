@@ -1,0 +1,9 @@
+{
+  "app": {
+    "title": "IMAGIS"
+  },
+  "map": {
+    "zoom_in": "Povećaj",
+    "zoom_out": "Smanji"
+  }
+}
