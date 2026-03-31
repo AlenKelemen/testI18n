@@ -1,4 +1,12 @@
 {
   "legend": "Legenda",
-  "tools": "Alati"
+  "tools": "Alati",
+  "select": "Odaberi",
+  "measure": "Mjeri",
+  "print": "Ispis",
+  "export": "Izvoz",
+  "permanent_link": "Trajna veza",
+  "settings": "Postavke",
+  "map_tools": "Alati karte",
+  "language": "Jezik"
 }

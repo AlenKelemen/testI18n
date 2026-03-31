@@ -69,6 +69,17 @@ const toolsButton = elt('button', {
 ]);
 const toolsTitle = elt('h5', { class: 'offcanvas-title' }, t('tools'));
 
+const mapToolsButton = elt('button', {
+  class: 'accordion-button',
+  type: 'button',
+  'data-bs-toggle': 'collapse',
+  'data-bs-target': '#collapseTools1'
+}, t('map_tools'));
+
+const selectButton = elt('button', { class: 'btn btn-outline-secondary btn-sm me-2' }, t('select'));
+
+const measureButton = elt('button', { class: 'btn btn-outline-secondary btn-sm me-2' }, t('measure'));
+
 const toolsOffcanvas = elt('div', {
   class: 'offcanvas offcanvas-start',
   id: 'toolsOffcanvas',
@@ -87,12 +98,7 @@ const toolsOffcanvas = elt('div', {
     elt('div', { class: 'accordion', id: 'toolsAccordion' }, [
       elt('div', { class: 'accordion-item' }, [
         elt('h2', { class: 'accordion-header' }, [
-          elt('button', {
-            class: 'accordion-button',
-            type: 'button',
-            'data-bs-toggle': 'collapse',
-            'data-bs-target': '#collapseTools1'
-          }, t('map_tools'))
+          mapToolsButton
         ]),
         elt('div', {
           id: 'collapseTools1',
@@ -100,8 +106,8 @@ const toolsOffcanvas = elt('div', {
           'data-bs-parent': '#toolsAccordion'
         }, [
           elt('div', { class: 'accordion-body' }, [
-            elt('button', { class: 'btn btn-outline-secondary btn-sm me-2' }, t('select')),
-            elt('button', { class: 'btn btn-outline-secondary btn-sm me-2' }, t('measure'))
+            selectButton,
+            measureButton
           ])
         ])
       ])
@@ -134,7 +140,39 @@ const langBtn = elt('button', {
   }
 }, [
   icon('language'),
-  ' ' + langLabel()
+  ' ' + t('language') + ' ' + langLabel()
+]);
+
+const printButton = elt('button', {
+  class: 'dropdown-item d-flex align-items-center gap-2',
+  type: 'button'
+}, [
+  icon('print'),
+  ' ' + t('print')
+]);
+
+const exportButton = elt('button', {
+  class: 'dropdown-item d-flex align-items-center gap-2',
+  type: 'button'
+}, [
+  icon('file-arrow-down'),
+  ' ' + t('export')
+]);
+
+const permanentLinkButton = elt('button', {
+  class: 'dropdown-item d-flex align-items-center gap-2',
+  type: 'button'
+}, [
+  icon('link'),
+  ' ' + t('permanent_link')
+]);
+
+const settingsButton = elt('button', {
+  class: 'dropdown-item d-flex align-items-center gap-2',
+  type: 'button'
+}, [
+  icon('gear'),
+  ' ' + t('settings')
 ]);
 
 const menu = elt('div', { class: 'dropdown' }, [
@@ -146,39 +184,15 @@ const menu = elt('div', { class: 'dropdown' }, [
   }, icon('bars')),
 
   elt('ul', { class: 'dropdown-menu dropdown-menu-end' }, [
-    elt('li', {}, elt('button', {
-      class: 'dropdown-item d-flex align-items-center gap-2',
-      type: 'button'
-    }, [
-      icon('print'),
-      ' Ispis'
-    ])),
+    elt('li', {}, printButton),
 
-    elt('li', {}, elt('button', {
-      class: 'dropdown-item d-flex align-items-center gap-2',
-      type: 'button'
-    }, [
-      icon('file-arrow-down'),
-      ' Izvoz'
-    ])),
+    elt('li', {}, exportButton),
 
-    elt('li', {}, elt('button', {
-      class: 'dropdown-item d-flex align-items-center gap-2',
-      type: 'button'
-    }, [
-      icon('link'),
-      ' Trajna veza'
-    ])),
+    elt('li', {}, permanentLinkButton),
 
     elt('li', {}, langBtn),
 
-    elt('li', {}, elt('button', {
-      class: 'dropdown-item d-flex align-items-center gap-2',
-      type: 'button'
-    }, [
-      icon('gear'),
-      ' Postavke'
-    ])),
+    elt('li', {}, settingsButton),
   ])
 ]);
 
@@ -205,8 +219,15 @@ document.body.append(
 function renderUI() {
   legendButton.lastChild.textContent = ' ' + t('legend');
   legendTitle.textContent = t('legend');
-  langBtn.lastChild.textContent = ' ' + langLabel();
+  langBtn.lastChild.textContent = ' ' + t('language') + ' ' + langLabel();
   toolsTitle.textContent = t('tools');
+  mapToolsButton.textContent = t('map_tools');
+  selectButton.textContent = t('select');
+  measureButton.textContent = t('measure');
+  printButton.lastChild.textContent = ' ' + t('print');
+  exportButton.lastChild.textContent = ' ' + t('export');
+  permanentLinkButton.lastChild.textContent = ' ' + t('permanent_link');
+  settingsButton.lastChild.textContent = ' ' + t('settings');
 }
 
 renderUI();
