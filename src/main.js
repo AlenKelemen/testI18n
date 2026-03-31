@@ -60,7 +60,7 @@ const legendOffcanvas = elt('div', {
 document.body.appendChild(legendOffcanvas);
 
 const toolsButton = elt('button', {
-  class: 'btn btn-light btn-sm d-flex align-items-center gap-2',
+  class: 'btn btn-light btn-sm d-flex align-items-center gap-2 map-btn-square',
   type: 'button',
   'data-bs-toggle': 'offcanvas',
   'data-bs-target': '#toolsOffcanvas'

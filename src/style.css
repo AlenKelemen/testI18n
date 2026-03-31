@@ -33,6 +33,7 @@ html, body, #map {
 .map-topbar-left .btn,
 .map-topbar-right .btn {
   height: 40px;
+  padding: 0 12px;
   display: flex;
   align-items: center;
 }
