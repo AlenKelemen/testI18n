@@ -8,7 +8,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bootstrap": "^5.3.8",
     "i18next": "^26.0.1",
-    "i18next-http-backend": "^3.0.2"
+    "i18next-http-backend": "^3.0.2",
+    "ol": "^10.8.0"
   }
 }

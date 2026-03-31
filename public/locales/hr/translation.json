@@ -1,9 +1,12 @@
 {
-  "app": {
-    "title": "IMAGIS"
-  },
-  "map": {
-    "zoom_in": "Povećaj",
-    "zoom_out": "Smanji"
-  }
+  "legend": "Legenda",
+  "tools": "Alati",
+  "select": "Odaberi",
+  "measure": "Mjeri",
+  "print": "Ispis",
+  "export": "Izvoz",
+  "permanent_link": "Trajna veza",
+  "settings": "Postavke",
+  "map_tools": "Alati karte",
+  "language": "Jezik"
 }

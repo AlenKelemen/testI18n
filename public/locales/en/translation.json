@@ -1,9 +1,12 @@
 {
-  "app": {
-    "title": "IMAGIS"
-  },
-  "map": {
-    "zoom_in": "Zoom in",
-    "zoom_out": "Zoom out"
-  }
+  "legend": "Legend",
+  "tools": "Tools",
+  "select": "Select",
+  "measure": "Measure",
+  "print": "Print",
+  "export": "Export",
+  "permanent_link": "Permanent link",
+  "settings": "Settings",
+  "map_tools": "Map Tools",
+  "language": "Language"
 }
