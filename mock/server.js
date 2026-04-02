@@ -1,3 +1,6 @@
+// Mock server za local development: vraća GeoJSON podatke iz mock/db.json
+// Koristi json-server paket za standardne REST endpointe 
+// i custom endpoint /features za OpenLayers FeatureCollection.
 const jsonServer = require('json-server');
 const server = jsonServer.create();
 const path = require('path');

@@ -1,4 +1,5 @@
 {
+  "_meta": "OVO JE MOCK PODATAK - DB DONT FORGET. Upotrebljava se u mock/server.js i /features endpointu",
   "features": [
     {
       "type": "Feature",
