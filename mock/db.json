@@ -1,0 +1,27 @@
+{
+  "_meta": "OVO JE MOCK PODATAK - DB DONT FORGET. Upotrebljava se u mock/server.js i /features endpointu",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Point A",
+        "category": "example"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.9819, 45.8150]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Point B",
+        "category": "example"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [16.3402, 48.2027]
+      }
+    }
+  ]
+}
