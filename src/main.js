@@ -4,26 +4,52 @@ import 'bootstrap';
 import Map from 'ol/Map.js';
 import View from 'ol/View.js';
 import TileLayer from 'ol/layer/Tile.js';
+import VectorLayer from 'ol/layer/Vector.js';
+import VectorSource from 'ol/source/Vector.js';
 import OSM from 'ol/source/OSM.js';
+import GeoJSON from 'ol/format/GeoJSON.js';
 import { defaults as defaultControls } from 'ol/control';
 import 'ol/ol.css';
 import './style.css';
 import { elt } from './elt.js';
 import { icon } from './icon.js';
+import { fetchFeatures } from './api.js';
+
+const vectorSource = new VectorSource();
+const vectorLayer = new VectorLayer({ source: vectorSource });
 
 const map = new Map({
   target: 'map',
   layers: [
     new TileLayer({
       source: new OSM()
-    })
+    }),
+    vectorLayer
   ],
   view: new View({
-    center: [0, 0],
-    zoom: 2
+    center: [1663262, 5145374], // Centar na Zagreb/Beč područje (EPSG:3857)
+    zoom: 7
   }),
   controls: defaultControls({ zoom: false })
 });
+
+async function loadGeoJSON() {
+  try {
+    const geojson = await fetchFeatures();
+    console.log('GeoJSON data:', geojson); // Dodano za probu
+
+    const features = new GeoJSON().readFeatures(geojson, {
+      featureProjection: 'EPSG:3857'
+    });
+
+    vectorSource.clear();
+    vectorSource.addFeatures(features);
+  } catch (err) {
+    console.error('Neuspjelo učitavanje GeoJSON-a:', err);
+  }
+}
+
+loadGeoJSON();
 
 /* LEFT TOPBAR */
 const legendButton = elt('button', {
