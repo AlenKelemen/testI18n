@@ -5,9 +5,11 @@ import 'ol/ol.css';
 import './style.css';
 import { initUI } from './ui.js';
 import { loadGeoJSON } from './map.js';
+import { initApiTester } from './apiTester.js';
 
 async function initApp() {
   initUI();
+  initApiTester();
   await i18n.changeLanguage(i18n.language || 'en');
   await loadGeoJSON();
 }

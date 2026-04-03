@@ -6,17 +6,14 @@ import VectorSource from 'ol/source/Vector.js';
 import OSM from 'ol/source/OSM.js';
 import GeoJSON from 'ol/format/GeoJSON.js';
 import { defaults as defaultControls } from 'ol/control';
-import { fetchFeatures } from './api.js';
+import { Style, Stroke, Fill, Circle as CircleStyle } from 'ol/style';
+import { fetchFeatures, fetchLayers } from './api.js';
 
-const vectorSource = new VectorSource();
-const vectorLayer = new VectorLayer({ source: vectorSource });
+const baseLayer = new TileLayer({ source: new OSM() });
 
 const map = new Map({
   target: 'map',
-  layers: [
-    new TileLayer({ source: new OSM() }),
-    vectorLayer
-  ],
+  layers: [baseLayer],
   view: new View({
     center: [1663262, 5145374],
     zoom: 7
@@ -24,17 +21,80 @@ const map = new Map({
   controls: defaultControls({ zoom: false })
 });
 
+function createStyleForLayer(layer) {
+  const baseStyle = {
+    stroke: new Stroke({ color: '#2f6f9a', width: 3 }),
+    fill: new Fill({ color: 'rgba(47, 111, 154, 0.2)' }),
+    image: new CircleStyle({
+      radius: 6,
+      fill: new Fill({ color: 'rgba(47, 111, 154, 0.9)' }),
+      stroke: new Stroke({ color: '#fff', width: 1 })
+    })
+  };
+
+  if (!layer || !layer.geom_type) {
+    return new Style(baseStyle);
+  }
+
+  switch (layer.geom_type.toLowerCase()) {
+    case 'linestring':
+      return new Style({ stroke: new Stroke({ color: '#d44f4f', width: 4 }) });
+    case 'point':
+      return new Style(baseStyle);
+    case 'polygon':
+      return new Style({
+        fill: new Fill({ color: 'rgba(31, 136, 63, 0.35)' }),
+        stroke: new Stroke({ color: '#1f883f', width: 2 })
+      });
+    default:
+      return new Style(baseStyle);
+  }
+}
+
+function clearFeatureLayers() {
+  const layers = map.getLayers();
+  const existing = layers.getArray().slice();
+
+  existing.forEach((l) => {
+    if (l !== baseLayer) {
+      layers.remove(l);
+    }
+  });
+}
+
 export async function loadGeoJSON() {
   try {
-    const geojson = await fetchFeatures();
-    console.log('GeoJSON data:', geojson);
+    const layersMeta = await fetchLayers();
 
-    const features = new GeoJSON().readFeatures(geojson, {
-      featureProjection: 'EPSG:3857'
-    });
+    if (!Array.isArray(layersMeta) || layersMeta.length === 0) {
+      // Legacy fallback: stari endpoint vraća FeatureCollection
+      const data = await fetchFeatures();
+      const source = new VectorSource({
+        features: new GeoJSON().readFeatures(data, { featureProjection: 'EPSG:3857' })
+      });
+      const fallbackLayer = new VectorLayer({ source });
+      map.addLayer(fallbackLayer);
+      return;
+    }
 
-    vectorSource.clear();
-    vectorSource.addFeatures(features);
+    clearFeatureLayers();
+
+    for (const layerDef of layersMeta) {
+      if (layerDef.visible === false) continue;
+
+      const layerData = await fetchFeatures({ layer_id: layerDef.id });
+      const features = new GeoJSON().readFeatures(layerData, { featureProjection: 'EPSG:3857' });
+
+      const source = new VectorSource({ features });
+      const vectorLayer = new VectorLayer({
+        source,
+        style: createStyleForLayer(layerDef),
+        visible: layerDef.visible !== false,
+        properties: { layerId: layerDef.id, title: layerDef.title }
+      });
+console.log(source)
+      map.addLayer(vectorLayer);
+    }
   } catch (err) {
     console.error('Neuspjelo učitavanje GeoJSON-a:', err);
   }

@@ -1,26 +1,47 @@
 {
-  "_meta": "OVO JE MOCK PODATAK - DB DONT FORGET. Upotrebljava se u mock/server.js i /features endpointu",
+  "layers": [
+    {
+      "id": "pipes",
+      "title": "Cjevovodi",
+      "geom_type": "LineString",
+      "visible": true
+    },
+    {
+      "id": "junctions",
+      "title": "Čvorovi",
+      "geom_type": "Point",
+      "visible": true
+    }
+  ],
   "features": [
     {
+      "id": 1,
       "type": "Feature",
-      "properties": {
-        "name": "Point A",
-        "category": "example"
-      },
+      "layer_id": "pipes",
       "geometry": {
-        "type": "Point",
-        "coordinates": [15.9819, 45.8150]
+        "type": "LineString",
+        "coordinates": [
+          [15.98, 45.81],
+          [16.00, 45.82]
+        ]
+      },
+      "properties": {
+        "name": "Pipe 1",
+        "diameter": 100,
+        "material": "PEHD"
       }
     },
     {
+      "id": 2,
       "type": "Feature",
-      "properties": {
-        "name": "Point B",
-        "category": "example"
-      },
+      "layer_id": "junctions",
       "geometry": {
         "type": "Point",
-        "coordinates": [16.3402, 48.2027]
+        "coordinates": [15.99, 45.815]
+      },
+      "properties": {
+        "name": "Junction 1",
+        "elevation": 120.5
       }
     }
   ]
