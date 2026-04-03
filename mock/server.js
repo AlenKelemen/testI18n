@@ -21,6 +21,10 @@ server.get('/features', (req, res, next) => {
   // Rezervirani query parametri koje ručno obrađujemo
   const RESERVED = new Set(['layer_id', 'include_layers']);
 
+  // Determine if caller requested layers in the response
+  const includeLayersParam = req.query.include_layers;
+  const includeLayers = includeLayersParam === '1' || includeLayersParam === 'true' || includeLayersParam === 'yes';
+
   // Parametri koji su samo property filteri (nisu rezervirani)
   const propertyFilters = Object.entries(req.query).filter(([k]) => !RESERVED.has(k));
 
@@ -41,7 +45,8 @@ server.get('/features', (req, res, next) => {
     features
   };
 
-  if (layers.length > 0) {
+  // Priloži layers samo ako je eksplicitno zatraženo
+  if (includeLayers && layers.length > 0) {
     payload.layers = layers;
   }
 
