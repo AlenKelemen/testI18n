@@ -23,14 +23,14 @@ export function initApiTester() {
   // Endpoint select
   const endpointSelect = elt('select', { class: 'form-select form-select-sm' }, [
     elt('option', { value: '/features' }, 'GET /features'),
-    elt('option', { value: '/layers' }, 'GET /layers'),
+    elt('option', { value: '/sources' }, 'GET /sources'),
   ]);
 
   // Query string input (npr. "layer_id=pipes&diameter=100")
   const queryInput = elt('input', {
     type: 'text',
     class: 'form-control form-control-sm',
-    placeholder: 'Query: layer_id=pipes&diameter=100',
+    placeholder: 'Query: source_id=pipes&diameter=100',
   });
 
   // URL preview

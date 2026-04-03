@@ -15,23 +15,23 @@ Web application with an OpenLayers map, internationalization (i18next) and a moc
 The project includes a custom mock server at `mock/server.js` (based on `json-server`). It exposes:
 
 - `GET /features` — returns a GeoJSON FeatureCollection with features from `mock/db.json`.
-- `GET /layers` — returns the layer metadata array from `mock/db.json`.
+- `GET /sources` — returns the source metadata array from `mock/db.json`.
 
-Important change: `layers` is no longer automatically attached to the `/features` response. To include the `layers` array alongside the features, add the `include_layers` query parameter with a truthy value (accepted values: `1`, `true`, `yes`).
+Important change: `sources` is no longer automatically attached to the `/features` response. To include the `sources` array alongside the features, add the `include_sources` query parameter with a truthy value (accepted values: `1`, `true`, `yes`).
 
 Examples:
 
 - `GET /features` — returns only the FeatureCollection with `features`
-- `GET /features?include_layers=1` — returns `features` and `layers`
-- `GET /features?layer_id=pipe1&include_layers=true` — filters by `layer_id` and includes `layers`
+- `GET /features?include_sources=1` — returns `features` and `sources`
+- `GET /features?source_id=pipe1&include_sources=true` — filters by `source_id` and includes `sources`
 - `GET /features?diameter=100` — filters features whose `properties.diameter` equals `100`
 
 Filtering behavior:
 
-- `layer_id` — supported as a reserved query parameter to return features belonging to a specific layer (e.g. `?layer_id=pipe1`).
+- `source_id` — supported as a reserved query parameter to return features belonging to a specific source (e.g. `?source_id=pipe1`).
 - Property filters — any other query parameter is treated as a property filter and matches features where `properties.<key>` equals the provided value (exact match).
 
-Note: There is no advanced operator syntax implemented in the server yet (e.g. `__gt`) — only equality and the `layer_id` filter. If you want range/comparison operators, that can be added quickly.
+Note: There is no advanced operator syntax implemented in the server yet (e.g. `__gt`) — only equality and the `source_id` filter. If you want range/comparison operators, that can be added quickly.
 
 ## How to run
 

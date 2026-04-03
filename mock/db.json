@@ -1,5 +1,5 @@
 {
-  "layers": [
+  "sources": [
     {
       "id": "pipes",
       "title": "Cjevovodi",
@@ -17,7 +17,7 @@
     {
       "id": 1,
       "type": "Feature",
-      "layer_id": "pipes",
+      "source_id": "pipes",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -34,7 +34,7 @@
     {
       "id": 2,
       "type": "Feature",
-      "layer_id": "pipes",
+      "source_id": "pipes",
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -51,7 +51,7 @@
     {
       "id": 2,
       "type": "Feature",
-      "layer_id": "junctions",
+      "source_id": "junctions",
       "geometry": {
         "type": "Point",
         "coordinates": [15.99, 45.815]

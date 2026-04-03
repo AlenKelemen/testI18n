@@ -8,8 +8,8 @@ export async function fetchFeatures(filter = {}) {
   return resp.json();
 }
 
-export async function fetchLayers() {
-  const url = `${API_BASE}/layers`;
+export async function fetchSources() {
+  const url = `${API_BASE}/sources`;
   const resp = await fetch(url);
   if (!resp.ok) throw new Error(`Fetch failed: ${resp.status} ${resp.statusText}`);
   return resp.json();

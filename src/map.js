@@ -7,7 +7,7 @@ import OSM from 'ol/source/OSM.js';
 import GeoJSON from 'ol/format/GeoJSON.js';
 import { defaults as defaultControls } from 'ol/control';
 import { Style, Stroke, Fill, Circle as CircleStyle } from 'ol/style';
-import { fetchFeatures, fetchLayers } from './api.js';
+import { fetchFeatures, fetchSources } from './api.js';
 
 const baseLayer = new TileLayer({ source: new OSM() });
 
@@ -64,7 +64,7 @@ function clearFeatureLayers() {
 
 export async function loadGeoJSON() {
   try {
-    const layersMeta = await fetchLayers();
+    const layersMeta = await fetchSources();
 
     if (!Array.isArray(layersMeta) || layersMeta.length === 0) {
       // Legacy fallback: stari endpoint vraća FeatureCollection
@@ -82,7 +82,7 @@ export async function loadGeoJSON() {
     for (const layerDef of layersMeta) {
       if (layerDef.visible === false) continue;
 
-      const layerData = await fetchFeatures({ layer_id: layerDef.id });
+      const layerData = await fetchFeatures({ source_id: layerDef.id });
       const features = new GeoJSON().readFeatures(layerData, { featureProjection: 'EPSG:3857' });
 
       const source = new VectorSource({ features });
@@ -90,7 +90,7 @@ export async function loadGeoJSON() {
         source,
         style: createStyleForLayer(layerDef),
         visible: layerDef.visible !== false,
-        properties: { layerId: layerDef.id, title: layerDef.title }
+        properties: { sourceId: layerDef.id, title: layerDef.title }
       });
       console.log(source)
       map.addLayer(vectorLayer);
