@@ -24,7 +24,7 @@ export function initUI() {
     type: 'button',
     'data-bs-toggle': 'offcanvas',
     'data-bs-target': '#legendOffcanvas'
-  }, [ icon('layer-group'), ' ' + t('legend') ]);
+  }, [icon('layer-group'), ' ' + t('legend')]);
 
   const legendTitle = elt('h5', { class: 'offcanvas-title' }, t('legend'));
 
@@ -41,7 +41,7 @@ export function initUI() {
         'data-bs-dismiss': 'offcanvas'
       })
     ]),
-    elt('div', { class: 'offcanvas-body' }, [ elt('div', {}, 'Legend content...') ])
+    elt('div', { class: 'offcanvas-body' }, [elt('div', {}, 'Legend content...')])
   ]);
 
   const toolsButton = elt('button', {
@@ -49,7 +49,7 @@ export function initUI() {
     type: 'button',
     'data-bs-toggle': 'offcanvas',
     'data-bs-target': '#toolsOffcanvas'
-  }, [ icon('sliders') ]);
+  }, [icon('sliders')]);
 
   const toolsTitle = elt('h5', { class: 'offcanvas-title' }, t('tools'));
 
@@ -86,7 +86,7 @@ export function initUI() {
             class: 'accordion-collapse collapse show',
             'data-bs-parent': '#toolsAccordion'
           }, [
-            elt('div', { class: 'accordion-body px-0 py-2' }, [ selectButton, measureButton ])
+            elt('div', { class: 'accordion-body px-0 py-2' }, [selectButton, measureButton])
           ])
         ])
       ])
@@ -96,18 +96,18 @@ export function initUI() {
   document.body.appendChild(legendOffcanvas);
   document.body.appendChild(toolsOffcanvas);
 
-  const topbarLeft = elt('div', { class: 'map-topbar-left' }, [ legendButton, toolsButton ]);
+  const topbarLeft = elt('div', { class: 'map-topbar-left' }, [legendButton, toolsButton]);
 
   const langBtn = elt('button', {
     class: 'dropdown-item d-flex align-items-center gap-2',
     type: 'button',
     onclick: async () => { await toggleLang(); }
-  }, [ icon('language'), ' ' + t('language') + ' ' + langLabel() ]);
+  }, [icon('language'), ' ' + t('language') + ' ' + langLabel()]);
 
-  const printButton = elt('button', { class: 'dropdown-item d-flex align-items-center gap-2', type: 'button' }, [ icon('print'), ' ' + t('print') ]);
-  const exportButton = elt('button', { class: 'dropdown-item d-flex align-items-center gap-2', type: 'button' }, [ icon('file-arrow-down'), ' ' + t('export') ]);
-  const permanentLinkButton = elt('button', { class: 'dropdown-item d-flex align-items-center gap-2', type: 'button' }, [ icon('link'), ' ' + t('permanent_link') ]);
-  const settingsButton = elt('button', { class: 'dropdown-item d-flex align-items-center gap-2', type: 'button' }, [ icon('gear'), ' ' + t('settings') ]);
+  const printButton = elt('button', { class: 'dropdown-item d-flex align-items-center gap-2', type: 'button' }, [icon('print'), ' ' + t('print')]);
+  const exportButton = elt('button', { class: 'dropdown-item d-flex align-items-center gap-2', type: 'button' }, [icon('file-arrow-down'), ' ' + t('export')]);
+  const permanentLinkButton = elt('button', { class: 'dropdown-item d-flex align-items-center gap-2', type: 'button' }, [icon('link'), ' ' + t('permanent_link')]);
+  const settingsButton = elt('button', { class: 'dropdown-item d-flex align-items-center gap-2', type: 'button' }, [icon('gear'), ' ' + t('settings')]);
 
   const menu = elt('div', { class: 'dropdown' }, [
     elt('button', { class: 'btn btn-success btn-sm', type: 'button', 'data-bs-toggle': 'dropdown', 'aria-expanded': 'false' }, icon('bars')),
@@ -120,9 +120,9 @@ export function initUI() {
     ])
   ]);
 
-  const topbarRight = elt('div', { class: 'map-topbar-right' }, [ menu, elt('button', { class: 'btn btn-success btn-sm', type: 'button' }, icon('user')) ]);
+  const topbarRight = elt('div', { class: 'map-topbar-right' }, [menu, elt('button', { class: 'btn btn-success btn-sm', type: 'button' }, icon('user'))]);
 
-  const bottombar = elt('div', { class: 'map-bottombar' }, [ elt('span', {}, '1:5000') ]);
+  const bottombar = elt('div', { class: 'map-bottombar' }, [elt('span', {}, '1:5000')]);
 
   document.body.append(topbarLeft, topbarRight, bottombar);
 
