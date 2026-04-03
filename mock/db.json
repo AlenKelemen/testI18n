@@ -34,6 +34,23 @@
     {
       "id": 2,
       "type": "Feature",
+      "layer_id": "pipes",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [15.68, 45.81],
+          [16.10, 45.62]
+        ]
+      },
+      "properties": {
+        "name": "Pipe 2",
+        "diameter": 200,
+        "material": "SL"
+      }
+    },
+    {
+      "id": 2,
+      "type": "Feature",
       "layer_id": "junctions",
       "geometry": {
         "type": "Point",
