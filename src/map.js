@@ -92,7 +92,7 @@ export async function loadGeoJSON() {
         visible: layerDef.visible !== false,
         properties: { layerId: layerDef.id, title: layerDef.title }
       });
-console.log(source)
+      console.log(source)
       map.addLayer(vectorLayer);
     }
   } catch (err) {
