@@ -47,6 +47,43 @@ Example: fetch all features for a source
   // with sources
   const dataWithSources = await fetchFeatures({ source_id: 'pipes', include_sources: '1' });
 
+## Legend query UI (minimal)
+
+A simple query UI was added to the Legend offcanvas that lets you add a layer for a given source with a lightweight filter. This is a quick way to preview and add filtered datasets without changing the server.
+
+- UI controls:
+  - Source select (choose a `source`)
+  - Field select (populated from a sample feature's properties for the chosen source)
+  - Operator select (`=`, `contains`, `>`, `<`)
+  - Value input
+  - Preview button (shows matching features count)
+  - Add (`+`) button — adds a new Vector layer built from the chosen source and applies the simple filter client-side
+
+- Filter format (client-side):
+  - The client uses a simple filter object: { field: 'propName', op: 'contains'|'eq'|'gt'|'lt'|..., value: '...' }
+  - When adding via the UI the application calls `addLayerFromSource(sourceId, applyStyle = true, filter)` where `filter` is the object above.
+  - This filtering is performed client-side on the fetched features. It is intentionally simple (string contains and numeric comparisons) to keep the UI light.
+
+- Preview: pressing Preview counts matching features locally and shows the result.
+
+- Legend entry: when a filtered layer is added, the legend shows the layer title plus a short filter summary and a remove button that calls `removeLayerBySourceId(sourceId)`.
+
+## Client helpers and behavior
+
+- addLayerFromSource(sourceId, applyStyle = true, filter = null)
+  - Adds a VectorLayer created from `GET /features?source_id=<sourceId>`
+  - If `filter` is provided it will filter features client-side before adding
+  - `applyStyle` controls whether a default style is applied
+
+- removeLayerBySourceId(sourceId)
+  - Removes the first layer with the matching `sourceId` property
+
+- removeAutoLoadedLayers()
+  - Helper to remove layers that were marked as auto-loaded. Note: the app no longer auto-adds feature layers on startup in the default flow; layers are expected to be added by the legend UI or programmatically.
+
+- Initial map view
+  - On startup the app attempts to compute an initial view extent from available features (fetched once) and fits the map to that extent. If no features are available the view falls back to Zagreb center and zoom.
+
 ## How to run
 
 ### Development
@@ -123,4 +160,4 @@ Test data is stored in GeoJSON format with `properties` (e.g. `name`, `category`
 - Popup on feature click
 - Multiple layers support (build layers from sources; source metadata available via `/sources`)
 
-If you want operator filters (greater-than, less-than, etc.), I can add a simple convention (e.g. `field__gt=100`) and update the server implementation.
+If you want operator filters (greater-than, less-than, etc.) implemented server-side (e.g. `field__gt=100`) I can add that quickly.
