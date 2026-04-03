@@ -113,6 +113,11 @@ html, body, #map {
   max-width: 320px;
 }
 
+/* remove horizontal padding in offcanvas body but keep vertical padding */
+.offcanvas .offcanvas-body {
+  padding: var(--bs-offcanvas-padding-y) 0;
+}
+
 /* opcionalno blur / prozirnost */
 .offcanvas-backdrop.show {
   opacity: 0.3;

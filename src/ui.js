@@ -54,14 +54,14 @@ export function initUI() {
   const toolsTitle = elt('h5', { class: 'offcanvas-title' }, t('tools'));
 
   const mapToolsButton = elt('button', {
-    class: 'accordion-button',
+    class: 'accordion-button w-100',
     type: 'button',
     'data-bs-toggle': 'collapse',
     'data-bs-target': '#collapseTools1'
   }, t('map_tools'));
 
-  const selectButton = elt('button', { class: 'btn btn-outline-secondary btn-sm me-2' }, t('select'));
-  const measureButton = elt('button', { class: 'btn btn-outline-secondary btn-sm me-2' }, t('measure'));
+  const selectButton = elt('button', { class: 'btn btn-outline-secondary btn-sm w-100 mb-2' }, t('select'));
+  const measureButton = elt('button', { class: 'btn btn-outline-secondary btn-sm w-100 mb-2' }, t('measure'));
 
   // Offcanvas lijeve bočne trake za map tools (select + measure)
   const toolsOffcanvas = elt('div', {
@@ -78,15 +78,15 @@ export function initUI() {
       })
     ]),
     elt('div', { class: 'offcanvas-body' }, [
-      elt('div', { class: 'accordion', id: 'toolsAccordion' }, [
-        elt('div', { class: 'accordion-item' }, [
+      elt('div', { class: 'accordion accordion-flush', id: 'toolsAccordion' }, [
+        elt('div', { class: 'accordion-item w-100' }, [
           elt('h2', { class: 'accordion-header' }, [mapToolsButton]),
           elt('div', {
             id: 'collapseTools1',
             class: 'accordion-collapse collapse show',
             'data-bs-parent': '#toolsAccordion'
           }, [
-            elt('div', { class: 'accordion-body' }, [ selectButton, measureButton ])
+            elt('div', { class: 'accordion-body px-0 py-2' }, [ selectButton, measureButton ])
           ])
         ])
       ])
