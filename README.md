@@ -33,6 +33,20 @@ Filtering behavior:
 
 Note: There is no advanced operator syntax implemented in the server yet (e.g. `__gt`) — only equality and the `source_id` filter. If you want range/comparison operators, that can be added quickly.
 
+Example: fetch all features for a source
+
+- Direct URL: `GET /features?source_id=pipes`
+- With sources included: `GET /features?source_id=pipes&include_sources=1`
+- curl:
+
+  curl "http://localhost:3001/features?source_id=pipes"
+
+- JavaScript (client helper):
+
+  const data = await fetchFeatures({ source_id: 'pipes' });
+  // with sources
+  const dataWithSources = await fetchFeatures({ source_id: 'pipes', include_sources: '1' });
+
 ## How to run
 
 ### Development
@@ -107,6 +121,6 @@ Test data is stored in GeoJSON format with `properties` (e.g. `name`, `category`
 
 - Filtering via query params (exact match)
 - Popup on feature click
-- Multiple layers support (metadata available via `/layers`)
+- Multiple layers support (build layers from sources; source metadata available via `/sources`)
 
 If you want operator filters (greater-than, less-than, etc.), I can add a simple convention (e.g. `field__gt=100`) and update the server implementation.
