@@ -1,6 +1,8 @@
 /* ===== MAP FULLSCREEN ===== */
 
-html, body, #map {
+html,
+body,
+#map {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -111,6 +113,11 @@ html, body, #map {
 
 .offcanvas {
   max-width: 320px;
+}
+
+/* remove horizontal padding in offcanvas body but keep vertical padding */
+.offcanvas .offcanvas-body {
+  padding: var(--bs-offcanvas-padding-y) 0;
 }
 
 /* opcionalno blur / prozirnost */
