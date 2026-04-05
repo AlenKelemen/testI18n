@@ -1,17 +1,3 @@
-import i18n from './i18n.js';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
 import 'ol/ol.css';
 import './style.css';
-import { initUI } from './ui.js';
-import { loadGeoJSON } from './map.js';
-import { initApiTester } from './apiTester.js';
-
-async function initApp() {
-  initUI();
-  initApiTester();
-  await i18n.changeLanguage(i18n.language || 'en');
-  await loadGeoJSON();
-}
-
-initApp();
+import './map.js';
